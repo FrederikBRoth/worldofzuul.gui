@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/gui/FXMLDocumentController.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/logic/CommandWords.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/persistence/FileReader.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/logic/Map.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/logic/Consumable.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/gui/WorldofzuulGui.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/logic/Command.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/logic/Item.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/logic/CommandWord.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/gui/FXMLDocument.fxml</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/logic/Game.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/interfaces/IFileReader.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/interfaces/IRoom.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/gui/Mover.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/interfaces/ICommand.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/logic/Parser.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/interfaces/IGame.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul.gui/src/worldofzuul/logic/Room.java</file>
+        </group>
+    </open-files>
+</project-private>
