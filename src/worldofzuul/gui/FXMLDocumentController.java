@@ -71,7 +71,7 @@ public class FXMLDocumentController implements Initializable {
             }
         }
         if(event.getCode() == KeyCode.B){
-            
+            inventory.addItem();
         }
         if(event.getCode() == KeyCode.C){
             inventory.removeItem();

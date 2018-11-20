@@ -24,10 +24,12 @@ public class Player implements IPlayer{
         return this.name;
     }
 
+    @Override
     public int getHP() {
         return this.HP;
     }
 
+    @Override
     public void addHP(int amount) {
         this.HP += amount;
     }
@@ -103,7 +105,7 @@ public class Player implements IPlayer{
     }
 
     @Override
-    public void pickupItem(Item item) {
+    public void pickupItem(IItem item) {
         inventory.add(item);
         addAgility(item.getStats().getAgility());
         addStrength(item.getStats().getStrength());

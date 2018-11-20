@@ -7,12 +7,12 @@ package worldofzuul.gui;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
+import worldofzuul.interfaces.IGame;
 import worldofzuul.interfaces.IItem;
+import worldofzuul.interfaces.IItemGenerator;
 import worldofzuul.interfaces.IPlayer;
-import worldofzuul.logic.Item;
+import worldofzuul.logic.ItemGenerator;
 
 /**
  *
@@ -20,6 +20,7 @@ import worldofzuul.logic.Item;
  */
 public class Inventory {
     IItem item;
+    IItemGenerator itemGenerator = new ItemGenerator();
     IPlayer player;
    
     public Inventory(IPlayer player){
@@ -39,7 +40,9 @@ public class Inventory {
         player.dropItem(item);
     }
     public void addItem(){
-        player.pickupItem((Item) item);
+        player.pickupItem(itemGenerator.generateItem(1));
     }
+
+    
 }
    
