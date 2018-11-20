@@ -55,6 +55,23 @@ public class Mover {
                 break;
         }
     }
+    
+    public boolean checkBorders(Circle player, Circle playerHitbox, Pane gameWindow) {
+        playerHitbox.setCenterX(this.getPlayerXCheck());
+        playerHitbox.setCenterY(this.getPlayerYCheck());
+        double pHMinY = playerHitbox.getBoundsInParent().getMinY();
+        double pHMinX = playerHitbox.getBoundsInParent().getMinX();
+        double pHMaxY = playerHitbox.getBoundsInParent().getMaxY();
+        double pHMaxX = playerHitbox.getBoundsInParent().getMaxX();
+        if (pHMinX < 0 || pHMaxX > gameWindow.getWidth() || pHMinY < 0
+                || pHMaxY > gameWindow.getHeight()) {
+            playerHitbox.setCenterX(player.getCenterX());
+            playerHitbox.setCenterY(player.getCenterY());
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public double getPlayerX() {
         playerX += playerDX;

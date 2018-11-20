@@ -7,21 +7,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="367.0" prefWidth="613.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="worldofzuul.gui.FXMLDocumentController">
+<AnchorPane id="AnchorPane" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="487.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="worldofzuul.gui.FXMLDocumentController">
     <children>
-      <Pane fx:id="gameWindow" prefHeight="238.0" prefWidth="451.0">
+      <Pane fx:id="gameWindow" prefHeight="309.0" prefWidth="508.0">
          <children>
-            <Rectangle fx:id="up" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="24.0" layoutX="91.0" layoutY="107.0" stroke="BLACK" strokeType="INSIDE" width="24.0" />
-            <Rectangle fx:id="down" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="24.0" layoutX="338.0" layoutY="103.0" stroke="BLACK" strokeType="INSIDE" width="24.0" />
-            <Circle fx:id="player" fill="DODGERBLUE" layoutX="215.0" layoutY="115.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="playerHitbox" fill="DODGERBLUE" layoutX="215.0" layoutY="115.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Rectangle fx:id="west" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="56.0" layoutX="-2.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-            <Rectangle fx:id="east" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="56.0" layoutX="443.0" layoutY="87.0" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-            <Rectangle fx:id="north" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="11.0" layoutX="187.0" stroke="BLACK" strokeType="INSIDE" width="58.0" />
-            <Rectangle fx:id="south" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="11.0" layoutX="186.0" layoutY="229.0" stroke="BLACK" strokeType="INSIDE" width="58.0" />
+            <Rectangle fx:id="up" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="24.0" layoutX="91.0" layoutY="143.0" stroke="BLACK" strokeType="INSIDE" width="24.0" />
+            <Rectangle fx:id="down" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="24.0" layoutX="368.0" layoutY="143.0" stroke="BLACK" strokeType="INSIDE" width="24.0" />
+            <Circle fx:id="playerGui" fill="DODGERBLUE" layoutX="245.0" layoutY="155.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="playerHitbox" fill="DODGERBLUE" layoutX="245.0" layoutY="155.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+            <Rectangle fx:id="west" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="56.0" layoutX="-4.0" layoutY="127.0" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+            <Rectangle fx:id="east" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="56.0" layoutX="502.0" layoutY="127.0" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+            <Rectangle fx:id="north" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="11.0" layoutX="216.0" stroke="BLACK" strokeType="INSIDE" width="58.0" />
+            <Rectangle fx:id="south" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="11.0" layoutX="216.0" layoutY="302.0" stroke="BLACK" strokeType="INSIDE" width="58.0" />
          </children>
       </Pane>
-      <TextArea fx:id="console" editable="false" focusTraversable="false" layoutY="239.0" prefHeight="128.0" prefWidth="613.0" />
-      <Button fx:id="focusButton" layoutX="513.0" layoutY="40.0" mnemonicParsing="false" text="Button" />
+      <TextArea fx:id="console" editable="false" focusTraversable="false" layoutY="309.0" prefHeight="176.0" prefWidth="508.0" />
+      <ToolBar layoutX="508.0" prefHeight="40.0" prefWidth="339.0">
+        <items>
+          <Button mnemonicParsing="false" text="Inventory" />
+            <Button fx:id="focusButton" mnemonicParsing="false" text="Button" />
+        </items>
+      </ToolBar>
+      <AnchorPane layoutX="508.0" layoutY="40.0" prefHeight="446.0" prefWidth="339.0">
+         <children>
+            <ListView fx:id="inventory" prefHeight="270.0" prefWidth="339.0" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

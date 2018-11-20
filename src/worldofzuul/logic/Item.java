@@ -1,6 +1,8 @@
 package worldofzuul.logic;
 
-public class Item {
+import worldofzuul.interfaces.IItem;
+
+public class Item implements IItem{
 
     private String itemName;
     private String itemDescription;

@@ -41,7 +41,7 @@ public class Game implements IGame{
         String output = "";
         output += "--  Welcome to the Wrath of the Mathknight  --\n";
         output += "Wrath of the Mathknight is a new, incredibly exciting adventure game.\n";
-        output += "Type '" + CommandWord.HELP + "' if you need help.\n\n";
+        output += "Type 'help' if you need help.\n\n";
         output += currentRoom.getLongDescription() + "\n";
         return output;
     }
@@ -125,7 +125,15 @@ public class Game implements IGame{
     public Room getCurrentRoom() {
         return this.currentRoom;
     }
-    
+    @Override
+    public Player getPlayer(){
+        return this.player;
+    }
+    @Override
+    public Item giveItem(){
+        System.out.println("hej");
+        return new ItemGenerator().generateItem(1);
+    }
 
 //    private boolean pickDifficulty() {
 //        Scanner scan = new Scanner(System.in);

@@ -1,14 +1,18 @@
 package worldofzuul.logic;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import worldofzuul.interfaces.IPlayer;
 
-public class Player {
+public class Player implements IPlayer{
 
     private String name;
     private int HP = 100;
     private Stats stats;
-    private ArrayList<Item> inventory = new ArrayList(5);
-    private ArrayList<Consumable> potInventory = new ArrayList(10);
+    private ObservableList<Item> inventory = FXCollections.observableArrayList();
+    private ObservableList<Consumable> potInventory = FXCollections.observableArrayList();
 
     public Player(String name) {
         this.name = name;
@@ -59,26 +63,30 @@ public class Player {
         this.stats.setIntelligence(this.stats.getIntelligence() + amount);
     }
 
-    public void getInventory() {
-        if (inventory.isEmpty()) {
-            System.out.println("You haven't collected any items yet, go defeat math monster to get some");
-        } else {
-            for (Item item : inventory) {
-                System.out.print(inventory.indexOf(item));
-                System.out.println(" " + item);
-                System.out.println(item.getStats());
-            }
-        }
-        if (potInventory.isEmpty()) {
-            System.out.println("You have 0 healing potions");
-        } else {
-            for (Consumable pot : potInventory) {
-                System.out.println("You have " + potInventory.size() + " healing potions");
-            }
-        }
+//    public void getInventory() {
+//        if (inventory.isEmpty()) {
+//            System.out.println("You haven't collected any items yet, go defeat math monster to get some");
+//        } else {
+//            for (Item item : inventory) {
+//                System.out.print(inventory.indexOf(item));
+//                System.out.println(" " + item);
+//                System.out.println(item.getStats());
+//            }
+//        }
+//        if (potInventory.isEmpty()) {
+//            System.out.println("You have 0 healing potions");
+//        } else {
+//            for (Consumable pot : potInventory) {
+//                System.out.println("You have " + potInventory.size() + " healing potions");
+//            }
+//        }
+//    }
+    @Override
+    public ObservableList<Item> getInventory() {
+        return inventory;
     }
-
-    public ArrayList<Consumable> getPotInventory() {
+     
+    public ObservableList<Consumable> getPotInventory() {
         return potInventory;
     }
 

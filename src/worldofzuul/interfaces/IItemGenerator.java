@@ -5,15 +5,10 @@
  */
 package worldofzuul.interfaces;
 
-import worldofzuul.logic.CommandWord;
-
 /**
  *
  * @author SteamyBlizzard
  */
-public interface ICommand {
-    public CommandWord getCommandWord();
-    public String getSecondWord();
-    public boolean isUnknown();
-    public boolean hasSecondWord();
+public interface IItemGenerator {
+    
 }

@@ -25,7 +25,6 @@ public class Monster {
         } else {
             hp = 100;
         }
-
         this.hp = 100;
     }
 

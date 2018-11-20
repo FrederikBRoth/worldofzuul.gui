@@ -5,7 +5,8 @@
  */
 package worldofzuul.interfaces;
 
-import worldofzuul.logic.Command;
+import worldofzuul.logic.Item;
+import worldofzuul.logic.Player;
 import worldofzuul.logic.Room;
 
 /**
@@ -17,5 +18,6 @@ public interface IGame {
     public String printHelp();
     public String goRoom(String direction);
     public Room getCurrentRoom();
-    
+    public Player getPlayer();
+    public Item giveItem();
 }
