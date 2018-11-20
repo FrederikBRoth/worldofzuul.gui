@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import worldofzuul.interfaces.IItem;
 import worldofzuul.interfaces.IPlayer;
 
 public class Player implements IPlayer{
@@ -11,7 +12,7 @@ public class Player implements IPlayer{
     private String name;
     private int HP = 100;
     private Stats stats;
-    private ObservableList<Item> inventory = FXCollections.observableArrayList();
+    private ObservableList<IItem> inventory = FXCollections.observableArrayList();
     private ObservableList<Consumable> potInventory = FXCollections.observableArrayList();
 
     public Player(String name) {
@@ -82,7 +83,7 @@ public class Player implements IPlayer{
 //        }
 //    }
     @Override
-    public ObservableList<Item> getInventory() {
+    public ObservableList<IItem> getInventory() {
         return inventory;
     }
      
@@ -101,6 +102,7 @@ public class Player implements IPlayer{
         return statSummary;
     }
 
+    @Override
     public void pickupItem(Item item) {
         inventory.add(item);
         addAgility(item.getStats().getAgility());
@@ -113,7 +115,8 @@ public class Player implements IPlayer{
         potInventory.add(healingPot);
     }
 
-    public void dropItem(Item item) {
+    @Override
+    public void dropItem(IItem item) {
         inventory.remove(item);
         addAgility(-item.getStats().getAgility());
         addStrength(-item.getStats().getStrength());
