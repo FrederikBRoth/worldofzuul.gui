@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import worldofzuul.interfaces.IConsumable;
 import worldofzuul.interfaces.IGame;
 import worldofzuul.interfaces.IItem;
 import worldofzuul.interfaces.IItemGenerator;
@@ -21,21 +22,31 @@ import worldofzuul.logic.ItemGenerator;
  * @author SteamyBlizzard
  */
 public class Inventory {
-    IItem item = new Item();
+    IItem item;
     IItemGenerator itemGenerator = new ItemGenerator();
+    IConsumable consumable;
     IPlayer player;
    
     public Inventory(IPlayer player){
         this.player = player;
     }
-    public void inventoryHandler(ListView invList, TextArea itemDescript){
-        invList.setItems(player.getInventory());
-        invList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IItem>() {
+    public void inventoryHandler(ListView playerItemList, ListView playerConsumeList, TextArea itemDescript){
+        playerItemList.setItems(player.getInventory());
+        playerItemList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IItem>() {
             @Override
             public void changed(ObservableValue<? extends IItem> observable, IItem oldValue, IItem newValue) {
                 itemDescript.clear();
                 itemDescript.appendText(newValue.getStats().toString());
                 item = newValue;
+            }
+        });
+        playerConsumeList.setItems(player.getPotInventory());
+        playerConsumeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IConsumable>() {
+            @Override
+            public void changed(ObservableValue<? extends IConsumable> observable, IConsumable oldValue, IConsumable newValue) {
+                itemDescript.clear();
+                itemDescript.appendText(newValue.getDescription());
+                consumable = newValue;
             }
         });
     }

@@ -1,9 +1,8 @@
 package worldofzuul.logic;
 
-import java.util.ArrayList;
-import java.util.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import worldofzuul.interfaces.IConsumable;
 import worldofzuul.interfaces.IItem;
 import worldofzuul.interfaces.IPlayer;
 
@@ -13,7 +12,7 @@ public class Player implements IPlayer{
     private int HP = 100;
     private Stats stats;
     private ObservableList<IItem> inventory = FXCollections.observableArrayList();
-    private ObservableList<Consumable> potInventory = FXCollections.observableArrayList();
+    private ObservableList<IConsumable> potInventory = FXCollections.observableArrayList();
 
     public Player(String name) {
         this.name = name;
@@ -89,7 +88,8 @@ public class Player implements IPlayer{
         return inventory;
     }
      
-    public ObservableList<Consumable> getPotInventory() {
+    @Override
+    public ObservableList<IConsumable> getPotInventory() {
         return potInventory;
     }
 

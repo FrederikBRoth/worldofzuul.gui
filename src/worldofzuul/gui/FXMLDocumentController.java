@@ -14,9 +14,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -36,14 +39,16 @@ public class FXMLDocumentController implements Initializable {
     IPlayer player = game.getPlayer();
     IItem item;
     Inventory inventory = new Inventory(player);
-    ShopWindow shopWindows;
+    ShopWindow shopWindows = new ShopWindow(game.getCurrentRoom().getShop(), player);
     String output;
     @FXML
     private AnchorPane inventoryPane, shopPane;
     @FXML
     private TextArea console, itemDescript, waresDescipt;
     @FXML
-    private ListView<IItem> invList, waresList;
+    private TabPane shopMode, inventoryMode;
+    @FXML
+    private ListView<IItem> playerItemList, playerConsumeList, waresList, consumableList;
     @FXML
     private Circle playerGui, playerHitbox;
     @FXML
@@ -76,7 +81,7 @@ public class FXMLDocumentController implements Initializable {
             }
         }
         if (event.getCode() == KeyCode.B) {
-            inventory.addItem();
+
         }
         if (event.getCode() == KeyCode.C) {
             inventory.removeItem();
@@ -102,21 +107,40 @@ public class FXMLDocumentController implements Initializable {
             inventoryPane.setDisable(false);
         }
     }
+
     @FXML
-    private void buyItem(ActionEvent event){
-        shopWindows.buyItem();
+    private void buyItem(ActionEvent event) {
+        if (shopMode.getTabs().get(0) == shopMode.getSelectionModel().getSelectedItem()) {
+            shopWindows.buyItem();
+        } else if (shopMode.getTabs().get(1) == shopMode.getSelectionModel().getSelectedItem()) {
+            shopWindows.buyConsumable();
+        }
+
     }
+
+    @FXML
+    private void getItemOptions(MouseEvent event) {
+        if(event.getButton() == MouseButton.SECONDARY){
+            System.out.println("YES");
+        } else {
+            System.out.println("NOOO");
+        }
+    }
+
     @FXML
     private void shopToggle() {
         if (shopPane.isVisible()) {
             shopPane.setVisible(false);
             shopPane.setDisable(true);
-            shopWindows = null;
+            shopWindows.stopShopHandler(waresList, consumableList);
+            moveTimer.start();
         } else {
             shopPane.setVisible(true);
             shopPane.setDisable(false);
             shopWindows = new ShopWindow(game.getCurrentRoom().getShop(), player);
-            shopWindows.shopHandler(waresList, waresDescipt);
+            shopWindows.shopHandler(waresList, consumableList, waresDescipt);
+            moveTimer.stop();
+
         }
     }
     private AnimationTimer moveTimer = new AnimationTimer() {
@@ -127,7 +151,6 @@ public class FXMLDocumentController implements Initializable {
                 playerGui.setCenterY(mover.getPlayerY());
                 checkExits();
             }
-
         }
     };
 
@@ -202,8 +225,8 @@ public class FXMLDocumentController implements Initializable {
         exitMap.put("east", east);
         exitMap.put("down", down);
         exitMap.put("up", up);
-        inventory.inventoryHandler(invList, itemDescript);
-
+        inventory.inventoryHandler(playerItemList, playerConsumeList, itemDescript);
+        System.out.println(shopMode.getTabs().get(0));
         setExits();
         setShops();
         focusButton.requestFocus();

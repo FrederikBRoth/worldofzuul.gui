@@ -1,8 +1,10 @@
 
 package worldofzuul.logic;
 
+import worldofzuul.interfaces.IConsumable;
 
-public class Consumable {
+
+public class Consumable implements IConsumable{
     
     private String name;
     private int healing;
@@ -10,6 +12,9 @@ public class Consumable {
     public Consumable(int healing) {
         this.healing = healing;
         this.name = "Healing potion";
+    }
+    public Consumable(String name){
+        this.name = name;
     }
 
     public String getName() {
@@ -29,9 +34,13 @@ public class Consumable {
     }
     
     @Override
-    public String toString() {
-        String toText = "Healing potion - heals for " + getHealing();
+    public String getDescription(){
+        String toText = "Healing potion:\n\theals for " + getHealing();
         return toText;
+    }
+    @Override
+    public String toString() {
+        return this.name;
     }
     
 

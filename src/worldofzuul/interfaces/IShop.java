@@ -6,6 +6,7 @@
 package worldofzuul.interfaces;
 
 import javafx.collections.ObservableList;
+import worldofzuul.logic.Consumable;
 import worldofzuul.logic.Item;
 import worldofzuul.logic.Player;
 
@@ -15,5 +16,7 @@ import worldofzuul.logic.Player;
  */
 public interface IShop {
     public ObservableList<IItem> getBuyableList();
+    public ObservableList<IConsumable> getBuyableConsumeList();
     public void buyWare(Item item, Player player);
+    public void buyConsumable(Consumable consumable, Player player);
 }

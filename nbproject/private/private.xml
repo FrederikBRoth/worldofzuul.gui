@@ -9,15 +9,16 @@
             <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/logic/Player.java</file>
             <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/logic/Game.java</file>
             <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/interfaces/IItem.java</file>
-            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/logic/ItemGenerator.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/gui/Mover.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/interfaces/IConsumable.java</file>
             <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/interfaces/IRoom.java</file>
             <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/gui/Inventory.java</file>
             <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/gui/WorldofzuulGui.java</file>
             <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/interfaces/IItemGenerator.java</file>
             <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/gui/FXMLDocumentController.java</file>
             <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/logic/Stats.java</file>
+            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/logic/Consumable.java</file>
             <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/interfaces/IPlayer.java</file>
-            <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/logic/Room.java</file>
             <file>file:/C:/Users/SteamyBlizzard/Documents/GitHub/worldofzuul-gui/src/worldofzuul/logic/Shop.java</file>
         </group>
     </open-files>

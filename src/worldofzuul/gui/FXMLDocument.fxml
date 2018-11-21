@@ -31,15 +31,57 @@
       </ToolBar>
       <AnchorPane fx:id="shopPane" layoutX="40.0" layoutY="28.0" prefHeight="260.0" prefWidth="418.0" visible="false">
          <children>
-            <ListView fx:id="waresList" prefHeight="260.0" prefWidth="207.0" />
-            <TextArea fx:id="waresDescipt" editable="false" focusTraversable="false" layoutX="206.0" layoutY="41.0" prefHeight="219.0" prefWidth="212.0" />
+            <TextArea fx:id="waresDescipt" editable="false" focusTraversable="false" layoutX="199.0" layoutY="41.0" prefHeight="219.0" prefWidth="219.0" />
             <Button layoutX="217.0" layoutY="8.0" mnemonicParsing="false" onAction="#buyItem" text="Buy" />
+            <TabPane fx:id="shopMode" prefHeight="260.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab fx:id="hello" text="Items">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="waresList" prefHeight="232.0" prefWidth="200.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Consumables">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="consumableList" prefHeight="232.0" prefWidth="200.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="inventoryPane" layoutX="508.0" layoutY="40.0" prefHeight="446.0" prefWidth="339.0">
          <children>
-            <ListView fx:id="invList" focusTraversable="false" prefHeight="270.0" prefWidth="339.0" />
             <TextArea fx:id="itemDescript" editable="false" focusTraversable="false" layoutY="270.0" prefHeight="176.0" prefWidth="339.0" />
+            <TabPane fx:id="shopMode1" prefHeight="269.0" prefWidth="339.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab fx:id="hello1" text="Items">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="playerItemList" onMouseClicked="#getItemOptions" prefHeight="240.0" prefWidth="339.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Consumables">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="playerConsumeList" prefHeight="240.0" prefWidth="339.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
          </children>
       </AnchorPane>
     </children>
