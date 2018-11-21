@@ -5,13 +5,15 @@
  */
 package worldofzuul.interfaces;
 
-import worldofzuul.logic.Stats;
+import javafx.collections.ObservableList;
+import worldofzuul.logic.Item;
+import worldofzuul.logic.Player;
 
 /**
  *
  * @author SteamyBlizzard
  */
-public interface IItem {
-    public Stats getStats();
-    public String getName();
+public interface IShop {
+    public ObservableList<IItem> getBuyableList();
+    public void buyWare(Item item, Player player);
 }

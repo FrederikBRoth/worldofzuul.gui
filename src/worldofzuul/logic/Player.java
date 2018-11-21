@@ -105,7 +105,7 @@ public class Player implements IPlayer{
     }
 
     @Override
-    public void pickupItem(IItem item) {
+    public void pickupItem(Item item) {
         inventory.add(item);
         addAgility(item.getStats().getAgility());
         addStrength(item.getStats().getStrength());
@@ -118,7 +118,7 @@ public class Player implements IPlayer{
     }
 
     @Override
-    public void dropItem(IItem item) {
+    public void dropItem(Item item) {
         inventory.remove(item);
         addAgility(-item.getStats().getAgility());
         addStrength(-item.getStats().getStrength());

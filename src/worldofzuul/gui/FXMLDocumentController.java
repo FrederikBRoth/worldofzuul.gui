@@ -9,10 +9,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,6 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -27,34 +25,36 @@ import worldofzuul.interfaces.IGame;
 import worldofzuul.interfaces.IItem;
 import worldofzuul.interfaces.IPlayer;
 import worldofzuul.logic.Game;
-import worldofzuul.logic.Item;
 
 /**
  *
  * @author SteamyBlizzard
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     IGame game = new Game();
     IPlayer player = game.getPlayer();
     IItem item;
     Inventory inventory = new Inventory(player);
+    ShopWindow shopWindows;
     String output;
     @FXML
-    private TextArea console;
+    private AnchorPane inventoryPane, shopPane;
     @FXML
-    private ListView<IItem> invList;
+    private TextArea console, itemDescript, waresDescipt;
+    @FXML
+    private ListView<IItem> invList, waresList;
     @FXML
     private Circle playerGui, playerHitbox;
     @FXML
-    private Rectangle north, south, east, west, down, up;
+    private Rectangle north, south, east, west, down, up, shop;
     HashMap<String, Rectangle> exitMap = new HashMap<>();
     @FXML
     private Pane gameWindow;
     @FXML
-    private Button focusButton;
+    private Button focusButton, inventoryButton;
     private Mover mover = new Mover();
-    
+
     @FXML
     private void keyPressed(KeyEvent event) {
         mover.keyPressed(event);
@@ -69,21 +69,55 @@ public class FXMLDocumentController implements Initializable {
                 output = game.goRoom("up");
                 console.appendText(output);
             }
+            if (shop.getBoundsInParent().intersects(playerHitbox.getBoundsInParent())
+                    && !shop.isDisabled()) {
+                shopToggle();
+
+            }
         }
-        if(event.getCode() == KeyCode.B){
+        if (event.getCode() == KeyCode.B) {
             inventory.addItem();
         }
-        if(event.getCode() == KeyCode.C){
+        if (event.getCode() == KeyCode.C) {
             inventory.removeItem();
         }
+        if (event.getCode() == KeyCode.I) {
+            System.out.println(game.getCurrentRoom().getDifficulty());
+        }
     }
-    
+
     @FXML
     private void keyReleased(KeyEvent event) {
         mover.keyReleased(event);
-        System.out.println(game.getPlayer().getHP());
-        System.out.println(player.getHP());
-        
+
+    }
+
+    @FXML
+    private void inventoryToggle(ActionEvent event) {
+        if (inventoryPane.isVisible()) {
+            inventoryPane.setVisible(false);
+            inventoryPane.setDisable(true);
+        } else {
+            inventoryPane.setVisible(true);
+            inventoryPane.setDisable(false);
+        }
+    }
+    @FXML
+    private void buyItem(ActionEvent event){
+        shopWindows.buyItem();
+    }
+    @FXML
+    private void shopToggle() {
+        if (shopPane.isVisible()) {
+            shopPane.setVisible(false);
+            shopPane.setDisable(true);
+            shopWindows = null;
+        } else {
+            shopPane.setVisible(true);
+            shopPane.setDisable(false);
+            shopWindows = new ShopWindow(game.getCurrentRoom().getShop(), player);
+            shopWindows.shopHandler(waresList, waresDescipt);
+        }
     }
     private AnimationTimer moveTimer = new AnimationTimer() {
         @Override
@@ -93,10 +127,10 @@ public class FXMLDocumentController implements Initializable {
                 playerGui.setCenterY(mover.getPlayerY());
                 checkExits();
             }
-            
+
         }
     };
-    
+
     private void checkExits() {
         for (Rectangle exit : exitMap.values()) {
             if (exit.getBoundsInParent().intersects(playerHitbox.getBoundsInParent())
@@ -127,10 +161,11 @@ public class FXMLDocumentController implements Initializable {
                     playerHitbox.setCenterX(mover.getPlayerXCheck());
                 }
                 setExits();
+                setShops();
             }
         }
     }
-    
+
     private void setExits() {
         for (String guiExits : exitMap.keySet()) {
             for (String exits : game.getCurrentRoom().getExits()) {
@@ -143,10 +178,21 @@ public class FXMLDocumentController implements Initializable {
                     exitMap.get(guiExits).setDisable(true);
                     exitMap.get(guiExits).setVisible(false);
                 }
+
             }
         }
     }
-    
+
+    private void setShops() {
+        if (game.getCurrentRoom().isShop()) {
+            shop.setVisible(true);
+            shop.setDisable(false);
+        } else {
+            shop.setVisible(false);
+            shop.setDisable(true);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         console.appendText(game.printWelcome());
@@ -156,10 +202,12 @@ public class FXMLDocumentController implements Initializable {
         exitMap.put("east", east);
         exitMap.put("down", down);
         exitMap.put("up", up);
-        inventory.inventoryHandler(invList);
+        inventory.inventoryHandler(invList, itemDescript);
+
         setExits();
+        setShops();
         focusButton.requestFocus();
         moveTimer.start();
     }
-    
+
 }

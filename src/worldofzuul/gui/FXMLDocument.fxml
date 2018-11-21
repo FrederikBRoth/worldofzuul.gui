@@ -19,18 +19,27 @@
             <Rectangle fx:id="east" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="56.0" layoutX="502.0" layoutY="127.0" stroke="BLACK" strokeType="INSIDE" width="9.0" />
             <Rectangle fx:id="north" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="11.0" layoutX="216.0" stroke="BLACK" strokeType="INSIDE" width="58.0" />
             <Rectangle fx:id="south" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="11.0" layoutX="216.0" layoutY="302.0" stroke="BLACK" strokeType="INSIDE" width="58.0" />
+            <Rectangle fx:id="shop" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="24.0" layoutX="450.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="24.0" />
          </children>
       </Pane>
       <TextArea fx:id="console" editable="false" focusTraversable="false" layoutY="309.0" prefHeight="176.0" prefWidth="508.0" />
       <ToolBar layoutX="508.0" prefHeight="40.0" prefWidth="339.0">
         <items>
-          <Button mnemonicParsing="false" text="Inventory" />
+          <Button fx:id="inventoryButton" mnemonicParsing="false" onAction="#inventoryToggle" text="Inventory" />
             <Button fx:id="focusButton" mnemonicParsing="false" text="Button" />
         </items>
       </ToolBar>
-      <AnchorPane layoutX="508.0" layoutY="40.0" prefHeight="446.0" prefWidth="339.0">
+      <AnchorPane fx:id="shopPane" layoutX="40.0" layoutY="28.0" prefHeight="260.0" prefWidth="418.0" visible="false">
          <children>
-            <ListView fx:id="invList" prefHeight="270.0" prefWidth="339.0" />
+            <ListView fx:id="waresList" prefHeight="260.0" prefWidth="207.0" />
+            <TextArea fx:id="waresDescipt" editable="false" focusTraversable="false" layoutX="206.0" layoutY="41.0" prefHeight="219.0" prefWidth="212.0" />
+            <Button layoutX="217.0" layoutY="8.0" mnemonicParsing="false" onAction="#buyItem" text="Buy" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="inventoryPane" layoutX="508.0" layoutY="40.0" prefHeight="446.0" prefWidth="339.0">
+         <children>
+            <ListView fx:id="invList" focusTraversable="false" prefHeight="270.0" prefWidth="339.0" />
+            <TextArea fx:id="itemDescript" editable="false" focusTraversable="false" layoutY="270.0" prefHeight="176.0" prefWidth="339.0" />
          </children>
       </AnchorPane>
     </children>

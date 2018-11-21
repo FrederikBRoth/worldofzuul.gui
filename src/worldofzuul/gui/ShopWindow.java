@@ -9,44 +9,44 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import worldofzuul.interfaces.IGame;
 import worldofzuul.interfaces.IItem;
 import worldofzuul.interfaces.IItemGenerator;
 import worldofzuul.interfaces.IPlayer;
+import worldofzuul.interfaces.IShop;
 import worldofzuul.logic.Item;
 import worldofzuul.logic.ItemGenerator;
+import worldofzuul.logic.Player;
 
 /**
  *
  * @author SteamyBlizzard
  */
-public class Inventory {
-    IItem item = new Item();
-    IItemGenerator itemGenerator = new ItemGenerator();
+public class ShopWindow {
+    IItem item;
+    IItemGenerator itemGenerator= new ItemGenerator();
+    IShop shop;
     IPlayer player;
-   
-    public Inventory(IPlayer player){
+
+    public ShopWindow(IShop shop, IPlayer player) {
+        this.shop = shop;
         this.player = player;
     }
-    public void inventoryHandler(ListView invList, TextArea itemDescript){
-        invList.setItems(player.getInventory());
-        invList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IItem>() {
+    
+    
+    public void shopHandler(ListView waresList, TextArea itemDescript){
+        waresList.setItems(shop.getBuyableList());
+        waresList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IItem>() {
             @Override
             public void changed(ObservableValue<? extends IItem> observable, IItem oldValue, IItem newValue) {
+                waresList.refresh();
                 itemDescript.clear();
                 itemDescript.appendText(newValue.getStats().toString());
                 item = newValue;
             }
         });
     }
-    public void removeItem(){
-        player.dropItem((Item) item);
-    }
-    public void addItem(){
-        player.pickupItem(itemGenerator.generateItem(1));
-    }
     
-
-    
+    public void buyItem(){
+        shop.buyWare((Item) item, (Player) player);
+    }
 }
-   

@@ -6,24 +6,32 @@
 package worldofzuul.logic;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import worldofzuul.interfaces.IItem;
+import worldofzuul.interfaces.IShop;
 
 /**
  *
  * @author fredd
  */
-public class Shop {
+public class Shop implements IShop {
 
-    ArrayList<Item> buyable = new ArrayList<>();
+    ObservableList<IItem> buyable = FXCollections.observableArrayList();
     ItemGenerator itemGen = new ItemGenerator();
     Scanner input = new Scanner(System.in);
     String output;
 
-    Shop() {
-        buyable.add(itemGen.generateItem(1));
-        buyable.add(itemGen.generateItem(1));
-        buyable.add(itemGen.generateItem(1));
+    Shop(int difficulty) {
+        buyable.add(itemGen.generateItem(difficulty));
+        buyable.add(itemGen.generateItem(difficulty));
+        buyable.add(itemGen.generateItem(difficulty));
+    }
+
+    @Override
+    public ObservableList<IItem> getBuyableList() {
+        return buyable;
     }
 
     public void startShop(Player player) {
@@ -46,7 +54,7 @@ public class Shop {
                 try {
                     if (!buyable.get(i).getName().equals("Sold out!")) {
                         System.out.println("You bought " + buyable.get(i).getName());
-                        player.pickupItem(buyable.get(i));
+//                        player.pickupItem(buyable.get(i));
                         buyable.set(i, new Item("Sold out!"));
                         System.out.println("Thank you for your service. Anything else?");
                         boolean buyMore = false;
@@ -80,9 +88,9 @@ public class Shop {
     public String printWares() {
         output = "";
         int i = 1;
-        for (Item item : buyable) {
+        for (IItem item : buyable) {
             if (!item.getName().equals("Sold out!")) {
-                output += item.getName() + "(" + i + ")\n";
+                output += item.getStats();
             } else {
                 output += item.getName() + "\n";
             }
@@ -91,5 +99,13 @@ public class Shop {
         output += "Please choose an item based on their numbering";
         return output;
     }
-    
+
+    @Override
+    public void buyWare(Item item, Player player) {
+        if (!item.getName().equals("Sold out!")) {
+            player.pickupItem(item);
+            buyable.set(buyable.indexOf(item), new Item("Sold out!"));
+        }
+
+    }
 }
