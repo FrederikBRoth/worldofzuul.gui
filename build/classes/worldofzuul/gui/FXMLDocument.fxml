@@ -9,6 +9,40 @@
 
 <AnchorPane id="AnchorPane" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="487.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="worldofzuul.gui.FXMLDocumentController">
     <children>
+      <AnchorPane fx:id="inventoryPane" layoutX="508.0" layoutY="40.0" prefHeight="446.0" prefWidth="339.0">
+         <children>
+            <TabPane fx:id="shopMode1" prefHeight="269.0" prefWidth="339.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab fx:id="hello1" text="Items">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="playerItemList" onMouseClicked="#getItemOptions" prefHeight="240.0" prefWidth="339.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Consumables">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="playerConsumeList" prefHeight="240.0" prefWidth="339.0">
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu></ListView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+            <TextArea fx:id="itemDescript" editable="false" focusTraversable="false" layoutY="270.0" prefHeight="176.0" prefWidth="339.0" />
+         </children>
+      </AnchorPane>
       <Pane fx:id="gameWindow" prefHeight="309.0" prefWidth="508.0">
          <children>
             <Rectangle fx:id="up" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="24.0" layoutX="91.0" layoutY="143.0" stroke="BLACK" strokeType="INSIDE" width="24.0" />
@@ -57,32 +91,11 @@
             </TabPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="inventoryPane" layoutX="508.0" layoutY="40.0" prefHeight="446.0" prefWidth="339.0">
+      <Pane fx:id="inventoryOptions" prefHeight="86.0" prefWidth="78.0" visible="false">
          <children>
-            <TextArea fx:id="itemDescript" editable="false" focusTraversable="false" layoutY="270.0" prefHeight="176.0" prefWidth="339.0" />
-            <TabPane fx:id="shopMode1" prefHeight="269.0" prefWidth="339.0" tabClosingPolicy="UNAVAILABLE">
-               <tabs>
-                  <Tab fx:id="hello1" text="Items">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <ListView fx:id="playerItemList" onMouseClicked="#testMethod" prefHeight="240.0" prefWidth="339.0" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab text="Consumables">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <ListView fx:id="playerConsumeList" prefHeight="240.0" prefWidth="339.0" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-               </tabs>
-            </TabPane>
+            <Button layoutX="13.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="13.0" layoutY="45.0" mnemonicParsing="false" text="Button" />
          </children>
-      </AnchorPane>
+      </Pane>
     </children>
 </AnchorPane>

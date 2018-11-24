@@ -55,7 +55,7 @@ public class FXMLDocumentController implements Initializable {
     private Rectangle north, south, east, west, down, up, shop;
     HashMap<String, Rectangle> exitMap = new HashMap<>();
     @FXML
-    private Pane gameWindow;
+    private Pane gameWindow, inventoryOptions;
     @FXML
     private Button focusButton, inventoryButton;
     private Mover mover = new Mover();
@@ -122,6 +122,7 @@ public class FXMLDocumentController implements Initializable {
     private void getItemOptions(MouseEvent event) {
         if(event.getButton() == MouseButton.SECONDARY){
             System.out.println("YES");
+            inventory.toggleInventoryPane(inventoryOptions, event);
         } else {
             System.out.println("NOOO");
         }
@@ -143,6 +144,7 @@ public class FXMLDocumentController implements Initializable {
 
         }
     }
+    
     private AnimationTimer moveTimer = new AnimationTimer() {
         @Override
         public void handle(long now) {
@@ -226,7 +228,6 @@ public class FXMLDocumentController implements Initializable {
         exitMap.put("down", down);
         exitMap.put("up", up);
         inventory.inventoryHandler(playerItemList, playerConsumeList, itemDescript);
-        System.out.println(shopMode.getTabs().get(0));
         setExits();
         setShops();
         focusButton.requestFocus();
