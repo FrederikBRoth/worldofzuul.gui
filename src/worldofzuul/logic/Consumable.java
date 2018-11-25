@@ -8,23 +8,35 @@ public class Consumable implements IConsumable{
     
     private String name;
     private int healing;
+    private int value;
 
     public Consumable(int healing) {
         this.healing = healing;
         this.name = "Healing potion";
+        this.value = 30;
     }
     public Consumable(String name){
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public int getHealing() {
         return healing;
     }

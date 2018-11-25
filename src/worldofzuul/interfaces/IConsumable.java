@@ -12,6 +12,6 @@ package worldofzuul.interfaces;
 public interface IConsumable {
     public String getName();
     public String getDescription();
-
     public int getHealing();
+    public int getValue();
 }

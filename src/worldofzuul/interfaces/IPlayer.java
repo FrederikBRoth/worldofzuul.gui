@@ -6,6 +6,7 @@
 package worldofzuul.interfaces;
 
 import javafx.collections.ObservableList;
+import worldofzuul.logic.Consumable;
 import worldofzuul.logic.Item;
 
 /**
@@ -15,8 +16,12 @@ import worldofzuul.logic.Item;
 public interface IPlayer {
     public ObservableList<IItem> getInventory();
     public ObservableList<IConsumable> getPotInventory();
-    public void addHP(int amount);
-    public int getHP();
+    public void addHp(int amount);
+    public int getHp();
+    public int getMaxHp();
+    public void setMaxHp(int maxHp);
     public void pickupItem(Item item);
     public void dropItem(Item item);
+    public int getGold();
+    public void useHealing(Consumable pot);
 }

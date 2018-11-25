@@ -13,13 +13,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -38,15 +40,21 @@ public class FXMLDocumentController implements Initializable {
     IGame game = new Game();
     IPlayer player = game.getPlayer();
     IItem item;
-    Inventory inventory = new Inventory(player);
-    ShopWindow shopWindows = new ShopWindow(game.getCurrentRoom().getShop(), player);
+    InventoryWindow inventoryWindow = new InventoryWindow(player);
+    ShopWindow shopWindow = new ShopWindow(game.getCurrentRoom().getShop(), player);
     String output;
     @FXML
     private AnchorPane inventoryPane, shopPane;
     @FXML
+    private Label goldCount;
+    @FXML
     private TextArea console, itemDescript, waresDescipt;
     @FXML
-    private TabPane shopMode, inventoryMode;
+    private ProgressBar hpBar;
+    @FXML
+    private MenuItem itemSell, consumableSell;
+    @FXML
+    private TabPane shopMode;
     @FXML
     private ListView<IItem> playerItemList, playerConsumeList, waresList, consumableList;
     @FXML
@@ -55,9 +63,9 @@ public class FXMLDocumentController implements Initializable {
     private Rectangle north, south, east, west, down, up, shop;
     HashMap<String, Rectangle> exitMap = new HashMap<>();
     @FXML
-    private Pane gameWindow, inventoryOptions;
+    private Pane gameWindow;
     @FXML
-    private Button focusButton, inventoryButton;
+    private Button focusButton;
     private Mover mover = new Mover();
 
     @FXML
@@ -81,10 +89,10 @@ public class FXMLDocumentController implements Initializable {
             }
         }
         if (event.getCode() == KeyCode.B) {
-
+            player.addHp(-30);
         }
         if (event.getCode() == KeyCode.C) {
-            inventory.removeItem();
+            inventoryWindow.removeItem();
         }
         if (event.getCode() == KeyCode.I) {
             System.out.println(game.getCurrentRoom().getDifficulty());
@@ -106,26 +114,35 @@ public class FXMLDocumentController implements Initializable {
             inventoryPane.setVisible(true);
             inventoryPane.setDisable(false);
         }
+
     }
 
     @FXML
     private void buyItem(ActionEvent event) {
         if (shopMode.getTabs().get(0) == shopMode.getSelectionModel().getSelectedItem()) {
-            shopWindows.buyItem();
+            shopWindow.buyItem();
         } else if (shopMode.getTabs().get(1) == shopMode.getSelectionModel().getSelectedItem()) {
-            shopWindows.buyConsumable();
+            shopWindow.buyConsumable();
         }
+        goldCount.setText("Gold: " + player.getGold());
 
     }
 
     @FXML
-    private void getItemOptions(MouseEvent event) {
-        if(event.getButton() == MouseButton.SECONDARY){
-            System.out.println("YES");
-            inventory.toggleInventoryPane(inventoryOptions, event);
-        } else {
-            System.out.println("NOOO");
-        }
+    private void sellItem(ActionEvent event) {
+        shopWindow.sellItem(inventoryWindow);
+        goldCount.setText("Gold: " + player.getGold());
+    }
+
+    @FXML
+    private void sellConsumable(ActionEvent event) {
+        shopWindow.sellConsumable(inventoryWindow);
+        goldCount.setText("Gold: " + player.getGold());
+    }
+
+    @FXML
+    private void useConsumable(ActionEvent event) {
+        inventoryWindow.useConsumable();
     }
 
     @FXML
@@ -133,18 +150,22 @@ public class FXMLDocumentController implements Initializable {
         if (shopPane.isVisible()) {
             shopPane.setVisible(false);
             shopPane.setDisable(true);
-            shopWindows.stopShopHandler(waresList, consumableList);
+            itemSell.setVisible(false);
+            consumableSell.setVisible(false);
+            shopWindow.stopShopHandler(waresList, consumableList);
             moveTimer.start();
         } else {
             shopPane.setVisible(true);
             shopPane.setDisable(false);
-            shopWindows = new ShopWindow(game.getCurrentRoom().getShop(), player);
-            shopWindows.shopHandler(waresList, consumableList, waresDescipt);
+            itemSell.setVisible(true);
+            consumableSell.setVisible(true);
+            shopWindow = new ShopWindow(game.getCurrentRoom().getShop(), player);
+            shopWindow.shopHandler(waresList, consumableList, waresDescipt);
             moveTimer.stop();
 
         }
     }
-    
+
     private AnimationTimer moveTimer = new AnimationTimer() {
         @Override
         public void handle(long now) {
@@ -153,6 +174,8 @@ public class FXMLDocumentController implements Initializable {
                 playerGui.setCenterY(mover.getPlayerY());
                 checkExits();
             }
+            updateHealth();
+
         }
     };
 
@@ -218,6 +241,16 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    //sets the progressbar with the health percentage
+    private void updateHealth() {
+        double percentage = (double) player.getHp() / (double) player.getMaxHp();
+        if (percentage < 0) {
+            percentage = 0;
+        }
+        hpBar.setProgress(percentage);
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         console.appendText(game.printWelcome());
@@ -227,11 +260,13 @@ public class FXMLDocumentController implements Initializable {
         exitMap.put("east", east);
         exitMap.put("down", down);
         exitMap.put("up", up);
-        inventory.inventoryHandler(playerItemList, playerConsumeList, itemDescript);
+        inventoryWindow.inventoryHandler(playerItemList, playerConsumeList, itemDescript);
         setExits();
         setShops();
+        updateHealth();
         focusButton.requestFocus();
         moveTimer.start();
+        goldCount.setText("Gold: " + player.getGold());
     }
 
 }

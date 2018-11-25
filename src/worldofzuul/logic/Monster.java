@@ -69,14 +69,14 @@ public class Monster {
 
         } else {
             System.out.println("Wrong answer!");
-            player.addHP(-35);
+            player.addHp(-35);
         }
 
     }
 
     public void combatInitiate(Question question, Player player) {
         System.out.println("A " + this.name + " approaches!");
-        while (player.getHP() > 0 && this.getHp() > 0) {
+        while (player.getHp() > 0 && this.getHp() > 0) {
             switch ((int) Math.floor(Math.random() * 4)) {
                 case 0:
                     combat(question.addition(), player);
@@ -92,7 +92,7 @@ public class Monster {
                     break;
             }
         }
-        if (player.getHP() < 0) {
+        if (player.getHp() < 0) {
             System.out.println("Game over.");
         } else {
             System.out.println("The " + this.name + " perished.");

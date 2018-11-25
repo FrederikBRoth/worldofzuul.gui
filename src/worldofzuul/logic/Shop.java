@@ -38,7 +38,7 @@ public class Shop implements IShop {
     public ObservableList<IItem> getBuyableList() {
         return buyable;
     }
-    
+
     @Override
     public ObservableList<IConsumable> getBuyableConsumeList() {
         return buyableConsumable;
@@ -109,21 +109,41 @@ public class Shop implements IShop {
 //        output += "Please choose an item based on their numbering";
 //        return output;
 //    }
-
     @Override
     public void buyWare(Item item, Player player) {
         if (!item.getName().equals("Sold out!")) {
             player.pickupItem(item);
+            player.setGold(player.getGold() - item.getStats().getValue());
             buyable.set(buyable.indexOf(item), new Item("Sold out!"));
+
         }
 
     }
+
     @Override
     public void buyConsumable(Consumable consumable, Player player) {
         if (!consumable.getName().equals("Sold out!")) {
             player.pickupPot(consumable);
+            player.setGold(player.getGold() - consumable.getValue());
             buyableConsumable.set(buyableConsumable.indexOf(consumable), new Consumable("Sold out!"));
         }
 
+    }
+
+    public boolean goldCheck(int value, Player player) {
+        return value <= player.getGold();
+    }
+
+    @Override
+    public void sellWare(Item item, Player player) {
+        player.dropItem(item);
+        player.setGold(player.getGold() + (int) (item.getStats().getValue() / 1.5));
+    }
+
+    @Override
+    public void sellConsumable(Consumable consumable, Player player) {
+        player.dropPot(consumable);
+        player.setGold(player.getGold() + (int) (consumable.getValue() / 1.5));
+        System.out.println(player.getGold());
     }
 }

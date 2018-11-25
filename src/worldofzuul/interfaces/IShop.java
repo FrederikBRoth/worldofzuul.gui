@@ -19,4 +19,7 @@ public interface IShop {
     public ObservableList<IConsumable> getBuyableConsumeList();
     public void buyWare(Item item, Player player);
     public void buyConsumable(Consumable consumable, Player player);
+    public void sellWare(Item item, Player player);
+    public void sellConsumable(Consumable consumable, Player player);
+    public boolean goldCheck(int value, Player player);
 }

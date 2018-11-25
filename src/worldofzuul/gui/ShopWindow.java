@@ -35,7 +35,6 @@ public class ShopWindow {
         this.shop = shop;
         this.player = player;
     }
-    
 
     public void shopHandler(ListView waresList, ListView consumablesList, TextArea itemDescript) {
         waresList.setItems(shop.getBuyableList());
@@ -43,7 +42,7 @@ public class ShopWindow {
             @Override
             public void changed(ObservableValue<? extends IItem> observable, IItem oldValue, IItem newValue) {
                 itemDescript.clear();
-                if(!newValue.getName().equals("Sold out!")){
+                if (!newValue.getName().equals("Sold out!")) {
                     itemDescript.appendText(newValue.getStats().toString());
                 }
                 item = newValue;
@@ -54,23 +53,37 @@ public class ShopWindow {
             @Override
             public void changed(ObservableValue<? extends IConsumable> observable, IConsumable oldValue, IConsumable newValue) {
                 itemDescript.clear();
-                if(!newValue.getName().equals("Sold out!")){
+                if (!newValue.getName().equals("Sold out!")) {
                     itemDescript.appendText(newValue.getDescription());
                 }
                 consumable = newValue;
             }
         });
-        
+
     }
-    public void stopShopHandler(ListView waresList, ListView consumablesList){
+
+    public void stopShopHandler(ListView waresList, ListView consumablesList) {
         waresList.getSelectionModel().selectedItemProperty().removeListener(waresListener);
         consumablesList.getSelectionModel().selectedItemProperty().removeListener(consumableListener);
     }
 
     public void buyItem() {
-        shop.buyWare((Item) item, (Player) player);
+        if (shop.goldCheck(item.getStats().getValue(), (Player) player)) {
+            shop.buyWare((Item) item, (Player) player);
+        }
     }
-    public void buyConsumable(){
-        shop.buyConsumable((Consumable) consumable, (Player) player);
+
+    public void buyConsumable() {
+        if (shop.goldCheck(consumable.getValue(), (Player) player)) {
+            shop.buyConsumable((Consumable) consumable, (Player) player);
+        }
+    }
+
+    public void sellConsumable(InventoryWindow inventory) {
+        shop.sellConsumable((Consumable) inventory.getSelectedConsumable(), (Player) player);
+    }
+
+    public void sellItem(InventoryWindow inventory) {
+        shop.sellWare((Item) inventory.getSelectedItem(), (Player) player);
     }
 }
