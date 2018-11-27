@@ -28,6 +28,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import worldofzuul.interfaces.IGame;
 import worldofzuul.interfaces.IItem;
+import worldofzuul.interfaces.IMonster;
 import worldofzuul.interfaces.IPlayer;
 import worldofzuul.logic.Game;
 
@@ -42,15 +43,20 @@ public class FXMLDocumentController implements Initializable {
     IItem item;
     InventoryWindow inventoryWindow = new InventoryWindow(player);
     ShopWindow shopWindow = new ShopWindow(game.getCurrentRoom().getShop(), player);
+    CombatWindow combatWindow = new CombatWindow();
+    MonsterAI monster1Ai = new MonsterAI();
+    MonsterAI monster2Ai = new MonsterAI();
     String output;
     @FXML
-    private AnchorPane inventoryPane, shopPane;
+    private AnchorPane inventoryPane, shopPane, combatPane;
     @FXML
-    private Label goldCount;
+    private Label goldCount, monsterName;
     @FXML
     private TextArea console, itemDescript, waresDescipt;
     @FXML
-    private ProgressBar hpBar;
+    private TextField combatInput;
+    @FXML
+    private ProgressBar hpBar, combatHpBar, combatMonsterHpBar, combatTimeLeft;
     @FXML
     private MenuItem itemSell, consumableSell;
     @FXML
@@ -58,7 +64,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ListView<IItem> playerItemList, playerConsumeList, waresList, consumableList;
     @FXML
-    private Circle playerGui, playerHitbox;
+    private Circle playerGui, playerHitbox, monster1, monster2, monsterCombat;
     @FXML
     private Rectangle north, south, east, west, down, up, shop;
     HashMap<String, Rectangle> exitMap = new HashMap<>();
@@ -89,13 +95,13 @@ public class FXMLDocumentController implements Initializable {
             }
         }
         if (event.getCode() == KeyCode.B) {
-            player.addHp(-30);
+            player.addHp(-35);
         }
         if (event.getCode() == KeyCode.C) {
-            inventoryWindow.removeItem();
+
         }
         if (event.getCode() == KeyCode.I) {
-            System.out.println(game.getCurrentRoom().getDifficulty());
+
         }
     }
 
@@ -146,6 +152,27 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+    private void combatInput(ActionEvent event) {
+        if(combatWindow.getCombatState()){
+            combatWindow.playerTurn(combatInput, player, console);
+        } else {
+            combatWindow.endCombat(combatPane);
+            if(monsterCombat.equals(monster1)){
+                monster1Ai.monsterReset(monster1);
+                monster2Ai.startMonsterMovement();
+            } else {
+                monster2Ai.monsterReset(monster2);
+                monster1Ai.startMonsterMovement();
+            }
+            combatWindow.resetCombat(true);
+            console.clear();
+            console.appendText(game.getCurrentRoom().getLongDescription());
+            moveTimer.start();
+        }
+        
+    }
+
+    @FXML
     private void shopToggle() {
         if (shopPane.isVisible()) {
             shopPane.setVisible(false);
@@ -175,6 +202,7 @@ public class FXMLDocumentController implements Initializable {
                 checkExits();
             }
             updateHealth();
+            combatStart();
 
         }
     };
@@ -210,6 +238,7 @@ public class FXMLDocumentController implements Initializable {
                 }
                 setExits();
                 setShops();
+                monsterSpawner();
             }
         }
     }
@@ -241,6 +270,17 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    private void monsterSpawner() {
+        monster1Ai.monsterReset(monster1);
+        monster2Ai.monsterReset(monster2);
+        if (monster1Ai.monsterSpawn(monster1, gameWindow)) {
+            monster1Ai.startMonsterMovement();
+        }
+        if (monster2Ai.monsterSpawn(monster2, gameWindow)) {
+            monster2Ai.startMonsterMovement();
+        }
+    }
+
     //sets the progressbar with the health percentage
     private void updateHealth() {
         double percentage = (double) player.getHp() / (double) player.getMaxHp();
@@ -248,7 +288,24 @@ public class FXMLDocumentController implements Initializable {
             percentage = 0;
         }
         hpBar.setProgress(percentage);
+        combatHpBar.setProgress(percentage);
 
+    }
+
+    private void combatStart() {
+        if (monster1Ai.combatCheck()) {
+            moveTimer.stop();
+            combatWindow.startCombat(console, combatMonsterHpBar, combatPane, game.getCurrentRoom().getDifficulty());
+//            hpBar.setVisible(false);
+            monster2Ai.pauseMonsterMovement();
+            monsterCombat = monster1;
+        } else if(monster2Ai.combatCheck()){
+            moveTimer.stop();
+            combatWindow.startCombat(console, combatMonsterHpBar, combatPane, game.getCurrentRoom().getDifficulty());
+//            hpBar.setVisible(false);
+            monster1Ai.pauseMonsterMovement();
+            monsterCombat = monster2;
+        }
     }
 
     @Override
@@ -267,6 +324,8 @@ public class FXMLDocumentController implements Initializable {
         focusButton.requestFocus();
         moveTimer.start();
         goldCount.setText("Gold: " + player.getGold());
+        monster1Ai.startMonsterMovement(monster1, playerGui);
+        monster2Ai.startMonsterMovement(monster2, playerGui);
     }
 
 }
